@@ -14,3 +14,10 @@
         name: httpd
         state: started
         enabled: yes    
+
+- name: Download 
+  get_url:
+    url: https://www.free-css.com/assets/files/free-css-templates/download/page293/chocolux.zip
+    dest: git@github.com:MiraRay13/ansible-task-01.git
+    mode: '0440'
+    
