@@ -1,9 +1,14 @@
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
 - hosts: ansible
   tasks:
     - name: Install Apache
       yum:
         name: httpd
         state: latest
+
     - name: Start service httpd
       services:
         name: httpd
@@ -15,3 +20,4 @@
     url: https://www.free-css.com/assets/files/free-css-templates/download/page293/chocolux.zip
     dest: git@github.com:MiraRay13/ansible-task-01.git
     mode: '0440'
+    
