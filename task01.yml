@@ -13,17 +13,20 @@
       service:
         name: httpd
         state: started
+        
+        enabled: yes
     - name: Download Template
       get_url:
         url: https://www.free-css.com/assets/files/free-css-templates/download/page294/namari.zip
-        dest: /tmp/flexor.zip    
+        dest: /etc/foo.conf  
+        mode: '0440' 
     - name: Install unzip
       yum:
         name: unzip
         state: present
     - name: Extract Template
       unarchive:
-        src: /tmp/flexor.zip
+        src: /etc/foo.conf
         dest: /var/www/html/
         remote_src: yes
     - name: Recursive change ownership or directory
