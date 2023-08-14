@@ -26,3 +26,8 @@
         src: /tmp/flexor.zip
         dest: /var/www/html/
         remote_src: yes
+    - name: Recursive change ownership or directory
+      file:
+        path: /var/www/html
+        state: directory
+        recurse: yes 
