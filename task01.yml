@@ -1,35 +1,28 @@
-- name: Disable SELinux
-  selinux:
-    state: disabled
-
-- hosts: ansible
+- name: Ansible Task
+  hosts: centos
+  become: yes
   tasks:
+    - name: Disable SELinux
+      selinux:
+        state: disabled
     - name: Install Apache
       yum:
         name: httpd
-        state: latest
-
-    - name: Start service httpd
-      services:
+        state: present
+    - name: Start Apache
+      service:
         name: httpd
         state: started
-        enabled: yes    
-
-- name: Download 
-  get_url:
-    url: https://www.free-css.com/assets/files/free-css-templates/download/page293/chocolux.zip
-    dest: git@github.com:MiraRay13/ansible-task-01.git
-    mode: '0440'
-
-- name: Extract foo.tgz into /var/www/html
-  unarchive:
-    src: foo.tgz
-    dest: /var/www/html
-
-- name: Recursively change ownership of a directory
-  file:
-    path: /etc/foo
-    state: directory
-    recurse: yes
-    owner: foo
-    group: foo  
+    - name: Download Template
+      get_url:
+        url: https://www.free-css.com/assets/files/free-css-templates/download/page294/namari.zip
+        dest: /tmp/flexor.zip    
+    - name: Install unzip
+      yum:
+        name: unzip
+        state: present
+    - name: Extract Template
+      unarchive:
+        src: /tmp/flexor.zip
+        dest: /var/www/html/
+        remote_src: yes
