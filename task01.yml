@@ -5,16 +5,18 @@
     - name: Disable SELinux
       selinux:
         state: disabled
+
     - name: Install Apache
       yum:
         name: httpd
-        state: present
+        state: latest
+
     - name: Start Apache
       service:
         name: httpd
         state: started
-        
         enabled: yes
+
     - name: Download Template
       get_url:
         url: https://www.free-css.com/assets/files/free-css-templates/download/page294/namari.zip
@@ -23,12 +25,13 @@
     - name: Install unzip
       yum:
         name: unzip
-        state: present
+        state: latest
     - name: Extract Template
       unarchive:
-        src: /etc/foo.conf
+        src: /tmp/flexor.zip
         dest: /var/www/html/
         remote_src: yes
+
     - name: Recursive change ownership or directory
       file:
         path: /var/www/html
